@@ -37,7 +37,12 @@ def translate_tags(db,update, user_scenario):
             state_clean(db,update, user_scenario)
         else:
             update.message.reply_text("Не понял, да, или нет?")
+            return False
         return True
+    else:
+        update.message.reply_text("Вы не отправляли мне изображение для анализа")
+        state_clean(db, update, user_scenario)
+        return False
 
 def translate_tags_finish(db,update, user_scenario):
     """ Вызывается при повторном вызове(если стейт уже есть). Возвращает False, останавливая сценарий. """
@@ -49,5 +54,10 @@ def translate_tags_finish(db,update, user_scenario):
         answer += emojize(settings.NAME_EMOJI['лицо прячется'])
         update.message.reply_text(answer)
         return False
+    else:
+        update.message.reply_text("Вы не отправляли мне изображение для анализа")
+        state_clean(db, update, user_scenario)
+        return False
 # --------------------------- Конец сценария ------------------------
+
 
